@@ -3,10 +3,7 @@ package lspci
 import (
 	"bufio"
 	"bytes"
-	"errors"
-	"fmt"
 	"io"
-	"os"
 	"os/exec"
 	"strings"
 )
@@ -83,20 +80,5 @@ func parseLSPCI(r io.Reader) (map[string]map[string]string, error) {
 }
 
 func FindBin(binary string) (string, error) {
-	locations := []string{"/sbin", "/usr/sbin", "/usr/local/sbin"}
-
-	for _, path := range locations {
-		lookup := path + "/" + binary
-		fileInfo, err := os.Stat(path + "/" + binary)
-
-		if err != nil {
-			continue
-		}
-
-		if !fileInfo.IsDir() {
-			return lookup, nil
-		}
-	}
-
-	return "", errors.New(fmt.Sprintf("Unable to find the '%v' binary", binary))
+	return exec.LookPath(binary)
 }

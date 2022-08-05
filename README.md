@@ -14,7 +14,7 @@ package main
 
 import (
     "fmt"
-    "github.com/xxr3376/golspci/lspci"
+    "github.com/storskegg/golspci/lspci"
 )
 
 func main() {
